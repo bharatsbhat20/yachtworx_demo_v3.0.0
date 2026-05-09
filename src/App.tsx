@@ -14,13 +14,6 @@ import ProviderRegistration from './pages/ProviderRegistration';
 import ProviderDashboard from './pages/ProviderDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import { AuthPage } from './pages/AuthPage';
-import { MarinaDiscovery } from './pages/MarinaDiscovery';
-import { MarinaProfile } from './pages/MarinaProfile';
-import MarinaDashboard from './pages/MarinaDashboard';
-import { InsuranceWallet } from './pages/InsuranceWallet';
-import { InsuranceMarketplace } from './pages/InsuranceMarketplace';
-import { InsurerDashboard } from './pages/InsurerDashboard';
-import { AgentDashboard } from './pages/AgentDashboard';
 import { useAuthStore } from './store/authStore';
 
 const noNavbarRoutes = ['/auth', '/register-provider', '/admin'];
@@ -69,23 +62,8 @@ const AppContent: React.FC = () => {
           {/* Protected — provider */}
           <Route path="/provider-dashboard" element={<ProtectedRoute><ProviderDashboard /></ProtectedRoute>} />
 
-          {/* Public — marina discovery */}
-          <Route path="/marinas" element={<MarinaDiscovery />} />
-          <Route path="/marinas/:id" element={<MarinaProfile />} />
-
-          {/* Protected — marina owner/operator */}
-          <Route path="/marina-dashboard" element={<ProtectedRoute><MarinaDashboard /></ProtectedRoute>} />
-
           {/* Protected — admin */}
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
-
-          {/* Protected — insurance (owner wallet + marketplace) */}
-          <Route path="/insurance" element={<ProtectedRoute><InsuranceWallet /></ProtectedRoute>} />
-          <Route path="/insurance/marketplace" element={<ProtectedRoute><InsuranceMarketplace /></ProtectedRoute>} />
-
-          {/* Protected — insurer & agent */}
-          <Route path="/insurer-dashboard" element={<ProtectedRoute><InsurerDashboard /></ProtectedRoute>} />
-          <Route path="/agent-dashboard"   element={<ProtectedRoute><AgentDashboard /></ProtectedRoute>} />
         </Routes>
       </AnimatePresence>
     </>

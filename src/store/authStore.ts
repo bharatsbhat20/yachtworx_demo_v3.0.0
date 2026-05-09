@@ -70,21 +70,6 @@ const defaultProvider: User = {
   updatedAt: '2024-01-01T00:00:00Z',
 };
 
-const defaultMarina: User = {
-  id: 'marina-owner-1',
-  firstName: 'David',
-  lastName: 'Park',
-  name: 'David Park',
-  email: 'marina@yachtworx.com',
-  role: 'marina',
-  emailVerified: true,
-  avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
-  avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
-  phone: '+1 305 555 0101',
-  createdAt: '2024-01-01T00:00:00Z',
-  updatedAt: '2024-01-01T00:00:00Z',
-};
-
 const defaultAdmin: User = {
   id: 'admin-1',
   firstName: 'Admin',
@@ -98,36 +83,6 @@ const defaultAdmin: User = {
   phone: '+1 310 555 0999',
   createdAt: '2024-01-01T00:00:00Z',
   updatedAt: '2024-01-01T00:00:00Z',
-};
-
-const defaultInsurer: User = {
-  id: 'insurer-user-1',
-  firstName: 'Catherine',
-  lastName: 'Walsh',
-  name: 'Catherine Walsh',
-  email: 'cwalsh@bluewatermarine.com',
-  role: 'insurer',
-  emailVerified: true,
-  avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop',
-  avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop',
-  phone: '+1 305 555 0200',
-  createdAt: '2025-06-01T00:00:00Z',
-  updatedAt: '2025-06-01T00:00:00Z',
-};
-
-const defaultAgent: User = {
-  id: 'agent-user-1',
-  firstName: 'Elena',
-  lastName: 'Vasquez',
-  name: 'Elena Vasquez',
-  email: 'elena@marinainsurance.com',
-  role: 'agent',
-  emailVerified: true,
-  avatarUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop',
-  avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop',
-  phone: '+1 305 555 0448',
-  createdAt: '2025-09-01T00:00:00Z',
-  updatedAt: '2025-09-01T00:00:00Z',
 };
 
 // ─── Registration State ───────────────────────────────────────────────────────
@@ -253,9 +208,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const base =
         role === 'owner'    ? defaultOwner :
         role === 'provider' ? defaultProvider :
-        role === 'marina'   ? defaultMarina :
-        role === 'insurer'  ? defaultInsurer :
-        role === 'agent'    ? defaultAgent :
                               defaultAdmin;
       set({
         currentUser: { ...base, email },
@@ -477,9 +429,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     const user =
       role === 'owner'    ? defaultOwner :
       role === 'provider' ? defaultProvider :
-      role === 'marina'   ? defaultMarina :
-      role === 'insurer'  ? defaultInsurer :
-      role === 'agent'    ? defaultAgent :
                             defaultAdmin;
     set({ currentUser: user });
   },

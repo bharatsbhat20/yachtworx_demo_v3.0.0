@@ -17,9 +17,6 @@ import {
   RefreshCw,
   Bell,
   Shield,
-  Building2,
-  Users,
-  Umbrella,
 } from 'lucide-react';
 import { clsx } from 'clsx';
 import { useAuthStore } from '../../store/authStore';
@@ -32,8 +29,6 @@ const ownerNavLinks = [
   { to: '/boats/boat-1',        label: 'My Boats',   icon: Ship },
   { to: '/marketplace',         label: 'Marketplace',icon: ShoppingBag },
   { to: '/requests',            label: 'Services',   icon: ClipboardList },
-  { to: '/marinas',             label: 'Marinas',    icon: Anchor },
-  { to: '/insurance',           label: 'Insurance',  icon: Umbrella },
   { to: '/messages',            label: 'Messages',   icon: MessageSquare },
   { to: '/documents',           label: 'Documents',  icon: FileText },
 ];
@@ -44,27 +39,8 @@ const providerNavLinks = [
   { to: '/messages',           label: 'Messages',   icon: MessageSquare },
 ];
 
-const marinaNavLinks = [
-  { to: '/marina-dashboard', label: 'Dashboard',  icon: LayoutDashboard },
-  { to: '/marinas',          label: 'Marinas',    icon: Anchor },
-  { to: '/messages',         label: 'Messages',   icon: MessageSquare },
-];
-
 const adminNavLinks = [
   { to: '/admin', label: 'Admin Panel', icon: Shield },
-];
-
-const insurerNavLinks = [
-  { to: '/insurer-dashboard', label: 'Dashboard',   icon: LayoutDashboard },
-  { to: '/insurance/marketplace', label: 'Products', icon: Umbrella },
-  { to: '/messages',          label: 'Messages',    icon: MessageSquare },
-];
-
-const agentNavLinks = [
-  { to: '/agent-dashboard',   label: 'Dashboard',   icon: LayoutDashboard },
-  { to: '/insurance/marketplace', label: 'Products', icon: Umbrella },
-  { to: '/insurance',         label: 'Client Policies', icon: Shield },
-  { to: '/messages',          label: 'Messages',    icon: MessageSquare },
 ];
 
 export const Navbar: React.FC = () => {
@@ -91,24 +67,17 @@ export const Navbar: React.FC = () => {
   const navLinks =
     currentUser?.role === 'provider' ? providerNavLinks :
     currentUser?.role === 'admin'    ? adminNavLinks :
-    currentUser?.role === 'marina'   ? marinaNavLinks :
-    currentUser?.role === 'insurer'  ? insurerNavLinks :
-    currentUser?.role === 'agent'    ? agentNavLinks :
     ownerNavLinks;
 
   const handleSwitchRole = () => {
     const cycle: Record<string, UserRole> = {
-      owner: 'provider', provider: 'marina', marina: 'admin',
-      admin: 'insurer', insurer: 'agent', agent: 'owner',
+      owner: 'provider', provider: 'admin', admin: 'owner',
     };
     const newRole: UserRole = cycle[currentUser?.role ?? 'owner'] ?? 'owner';
     switchRole(newRole);
     const dest =
       newRole === 'provider' ? '/provider-dashboard' :
       newRole === 'admin'    ? '/admin' :
-      newRole === 'marina'   ? '/marina-dashboard' :
-      newRole === 'insurer'  ? '/insurer-dashboard' :
-      newRole === 'agent'    ? '/agent-dashboard' :
       '/dashboard';
     navigate(dest);
     setProfileOpen(false);
@@ -116,8 +85,7 @@ export const Navbar: React.FC = () => {
 
   const nextRoleLabel = (): string => {
     const map: Record<string, string> = {
-      owner: 'Provider', provider: 'Marina', marina: 'Admin',
-      admin: 'Insurer', insurer: 'Agent', agent: 'Owner',
+      owner: 'Provider', provider: 'Admin', admin: 'Owner',
     };
     return map[currentUser?.role ?? 'owner'] ?? 'Owner';
   };
