@@ -5,7 +5,7 @@ import {
   DollarSign, Star, Briefcase, TrendingUp, Clock, CheckCircle,
   AlertCircle, Shield, FileText, MapPin, Image, Bell, Settings,
   ExternalLink, ChevronRight, RefreshCw, BarChart2, MessageSquare,
-  Sparkles,
+  Sparkles, Ship, Wrench, Calendar, Anchor,
 } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { useProviderOnboardingStore } from '../store/providerOnboardingStore';
@@ -17,8 +17,9 @@ import ServiceAreaManager from '../components/provider/ServiceAreaManager';
 import PortfolioGrid from '../components/provider/PortfolioGrid';
 import { VERIFICATION_STATUS_LABELS, VERIFICATION_STATUS_COLORS, DOCUMENT_TYPE_LABELS } from '../types';
 import type { ProviderDocument } from '../types';
+import { MANAGED_VESSELS, type ManagedVessel } from '../data/managedVesselsData';
 
-type Tab = 'overview' | 'documents' | 'service-areas' | 'portfolio' | 'reviews' | 'settings' | 'recommended-jobs';
+type Tab = 'overview' | 'managed-vessels' | 'documents' | 'service-areas' | 'portfolio' | 'reviews' | 'settings' | 'recommended-jobs';
 
 // ─── Stat card ────────────────────────────────────────────────────────────────
 
@@ -118,8 +119,14 @@ export default function ProviderDashboard() {
   const hasLicence   = approvedDocs.some((d) => d.documentType === 'business_license');
   const hasInsurance = approvedDocs.some((d) => d.documentType === 'insurance_coi');
 
+  // Managed vessels (demo) — derived summary
+  const managedMrr = MANAGED_VESSELS.reduce((s, v) => s + v.monthlyFeeUsd, 0);
+  const vesselsNeedingAttention = MANAGED_VESSELS.filter((v) => v.status === 'attention').length;
+  const managedOpenJobs = MANAGED_VESSELS.reduce((s, v) => s + v.openJobs, 0);
+
   const TABS: { id: Tab; label: string; icon: React.ElementType; badge?: number }[] = [
     { id: 'overview',          label: 'Overview',         icon: BarChart2 },
+    { id: 'managed-vessels',   label: 'Managed Vessels',  icon: Ship, badge: vesselsNeedingAttention || undefined },
     { id: 'recommended-jobs',  label: 'Recommended Jobs', icon: Sparkles, badge: providerJobMatches.length || undefined },
     { id: 'documents',         label: 'Documents',        icon: FileText, badge: pendingDocs.length },
     { id: 'service-areas',     label: 'Service Areas',    icon: MapPin },
@@ -406,6 +413,33 @@ export default function ProviderDashboard() {
                 </div>
               )}
 
+              {/* ── MANAGED VESSELS TAB ── */}
+              {activeTab === 'managed-vessels' && (
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-lg font-bold text-gray-900">
+                      Managed Vessels <span className="text-gray-400 font-normal text-base">({MANAGED_VESSELS.length})</span>
+                    </h2>
+                    <span className="hidden sm:block text-sm text-gray-400">Vessels under active service contract</span>
+                  </div>
+
+                  {/* Summary stats */}
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <StatCard icon={Ship}        label="Vessels Managed"   value={MANAGED_VESSELS.length}                color="bg-ocean-100 text-ocean-600" />
+                    <StatCard icon={DollarSign}  label="Monthly Recurring" value={`$${managedMrr.toLocaleString()}`}      color="bg-teal-100 text-teal-600" sub="contract revenue" />
+                    <StatCard icon={AlertCircle} label="Need Attention"    value={vesselsNeedingAttention}               color="bg-amber-100 text-amber-600" />
+                    <StatCard icon={Wrench}      label="Open Jobs"         value={managedOpenJobs}                       color="bg-purple-100 text-purple-600" />
+                  </div>
+
+                  {/* Vessel list */}
+                  <div className="space-y-4">
+                    {MANAGED_VESSELS.map((v) => (
+                      <ManagedVesselCard key={v.id} vessel={v} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* ── DOCUMENTS TAB ── */}
               {activeTab === 'documents' && (
                 <div className="space-y-4">
@@ -666,6 +700,123 @@ function DocumentCard({ doc }: { doc: ProviderDocument }) {
         {doc.status === 'rejected' && (
           <button className="text-xs text-ocean-600 hover:underline">Resubmit</button>
         )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Managed Vessel Card ──────────────────────────────────────────────────────
+
+function healthBand(score: number) {
+  if (score >= 80) return { label: 'Good',            text: 'text-teal-700',  bar: 'bg-teal-500' };
+  if (score >= 50) return { label: 'Fair',            text: 'text-amber-700', bar: 'bg-amber-500' };
+  return                  { label: 'Needs Attention', text: 'text-red-700',   bar: 'bg-red-500' };
+}
+
+const CONTRACT_TIER_STYLE: Record<string, string> = {
+  'Full Management':  'bg-ocean-100 text-ocean-700',
+  'Maintenance Plan': 'bg-teal-100 text-teal-700',
+  'Seasonal Care':    'bg-purple-100 text-purple-700',
+  'On-Call':          'bg-gray-100 text-gray-600',
+};
+
+const VESSEL_STATUS_STYLE: Record<string, { label: string; cls: string }> = {
+  active:     { label: 'Active',     cls: 'bg-teal-100 text-teal-700' },
+  attention:  { label: 'Attention',  cls: 'bg-amber-100 text-amber-700' },
+  in_service: { label: 'In Service', cls: 'bg-ocean-100 text-ocean-700' },
+};
+
+function fmtVesselDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function ManagedVesselCard({ vessel: v }: { vessel: ManagedVessel }) {
+  const band = healthBand(v.healthScore);
+  const status = VESSEL_STATUS_STYLE[v.status] ?? VESSEL_STATUS_STYLE.active;
+
+  return (
+    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+      <div className="flex flex-col sm:flex-row">
+        {/* Photo */}
+        <div className="sm:w-52 h-44 sm:h-auto flex-shrink-0 bg-gray-100">
+          <img src={v.photoUrl} alt={v.name} className="w-full h-full object-cover" />
+        </div>
+
+        {/* Body */}
+        <div className="flex-1 min-w-0 p-5">
+          {/* Title row */}
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h3 className="font-bold text-gray-900 truncate">{v.name}</h3>
+                <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${status.cls}`}>{status.label}</span>
+              </div>
+              <p className="text-sm text-gray-500 mt-0.5">
+                {v.year} {v.make} {v.model} · {v.type} · {v.lengthFt} ft
+              </p>
+            </div>
+            <span className={`text-xs font-medium px-2.5 py-1 rounded-full whitespace-nowrap flex-shrink-0 ${CONTRACT_TIER_STYLE[v.contractTier] ?? 'bg-gray-100 text-gray-600'}`}>
+              {v.contractTier}
+            </span>
+          </div>
+
+          {/* Owner + home port */}
+          <div className="flex items-center gap-x-4 gap-y-1.5 mt-3 flex-wrap">
+            <div className="flex items-center gap-2">
+              <img src={v.ownerAvatarUrl} alt={v.ownerName} className="w-6 h-6 rounded-full object-cover" />
+              <span className="text-sm text-gray-700">{v.ownerName}</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-sm text-gray-500">
+              <Anchor className="w-3.5 h-3.5" />
+              {v.homePort}
+            </div>
+            <span className="text-xs text-gray-400">Managed since {fmtVesselDate(v.contractSince)}</span>
+          </div>
+
+          {/* Health bar */}
+          <div className="mt-4">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs font-medium text-gray-500">Vessel Health</span>
+              <span className={`text-xs font-semibold ${band.text}`}>{v.healthScore} · {band.label}</span>
+            </div>
+            <div className="h-2 bg-gray-100 rounded-full">
+              <div className={`h-full rounded-full ${band.bar}`} style={{ width: `${v.healthScore}%` }} />
+            </div>
+          </div>
+
+          {/* Detail grid */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-4 pt-4 border-t border-gray-100">
+            <div>
+              <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-0.5">
+                <Calendar className="w-3.5 h-3.5" /> Next Service
+              </div>
+              <p className="text-sm font-medium text-gray-800">{fmtVesselDate(v.nextServiceDate)}</p>
+              <p className="text-xs text-gray-500 truncate">{v.nextServiceType}</p>
+            </div>
+            <div>
+              <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-0.5">
+                <CheckCircle className="w-3.5 h-3.5" /> Last Service
+              </div>
+              <p className="text-sm font-medium text-gray-800">{fmtVesselDate(v.lastServiceDate)}</p>
+              <p className="text-xs text-gray-500 truncate">{v.lastServiceType}</p>
+            </div>
+            <div>
+              <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-0.5">
+                <Wrench className="w-3.5 h-3.5" /> Open Jobs
+              </div>
+              <p className={`text-sm font-semibold ${v.openJobs > 0 ? 'text-amber-600' : 'text-gray-800'}`}>
+                {v.openJobs === 0 ? 'None' : `${v.openJobs} active`}
+              </p>
+            </div>
+            <div>
+              <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-0.5">
+                <DollarSign className="w-3.5 h-3.5" /> Contract
+              </div>
+              <p className="text-sm font-medium text-gray-800">${v.monthlyFeeUsd.toLocaleString()}/mo</p>
+              <p className="text-xs text-gray-500">${v.ytdSpendUsd.toLocaleString()} YTD spend</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
