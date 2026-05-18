@@ -162,7 +162,7 @@ export const MANAGED_VESSELS: ManagedVessel[] = [
     year: 2017,
     type: 'Sailing Yacht',
     lengthFt: 56,
-    photoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',
+    photoUrl: 'https://images.unsplash.com/photo-1540946485063-a40da27545f8?w=800&q=80',
     ownerName: 'Eleanor Voss',
     ownerAvatarUrl: 'https://randomuser.me/api/portraits/women/55.jpg',
     homePort: 'Channel Islands Harbor, CA',
