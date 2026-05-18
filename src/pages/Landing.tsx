@@ -159,9 +159,19 @@ export const Landing: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-sm px-4 py-2 rounded-full mb-8 font-medium">
-              <span className="w-2 h-2 bg-teal-400 rounded-full animate-pulse" />
-              Now serving 12,400+ vessels in 48 states
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-sm px-4 py-2 rounded-full font-medium">
+                <span className="w-2 h-2 bg-teal-400 rounded-full animate-pulse" />
+                Now serving 12,400+ vessels in 48 states
+              </div>
+              <Link
+                to="/wood-boats"
+                className="inline-flex items-center gap-1.5 bg-gold-400/15 backdrop-blur-sm border border-gold-400/30 text-gold-200 text-sm px-4 py-2 rounded-full font-medium hover:bg-gold-400/25 transition-colors"
+              >
+                <Ship size={14} />
+                We support wood boats
+                <ArrowRight size={14} />
+              </Link>
             </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-white leading-tight mb-6">
               Yacht management on{' '}
