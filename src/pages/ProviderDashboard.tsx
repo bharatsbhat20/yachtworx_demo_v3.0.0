@@ -5,7 +5,7 @@ import {
   DollarSign, Star, Briefcase, TrendingUp, Clock, CheckCircle,
   AlertCircle, Shield, FileText, MapPin, Image, Bell, Settings,
   ExternalLink, ChevronRight, RefreshCw, BarChart2, MessageSquare,
-  Sparkles, Ship, Wrench, Calendar, Anchor,
+  Sparkles, Ship, Wrench, Calendar, Anchor, ClipboardCheck,
 } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { useProviderOnboardingStore } from '../store/providerOnboardingStore';
@@ -645,6 +645,26 @@ export default function ProviderDashboard() {
 
             </motion.div>
           </div>
+        </div>
+      </div>
+
+      {/* Surveyors entry point */}
+      <div className="border-t border-gray-200 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-center sm:text-left">
+            <p className="font-semibold text-gray-900">Are you a marine surveyor?</p>
+            <p className="text-sm text-gray-500">
+              Yachtworx has a dedicated workspace for accredited survey professionals.
+            </p>
+          </div>
+          <Link
+            to="/surveyors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-navy-900 text-white text-sm font-medium rounded-lg hover:bg-navy-800 transition-colors whitespace-nowrap"
+          >
+            <ClipboardCheck className="w-4 h-4" />
+            Surveyors click here
+            <ChevronRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
 
