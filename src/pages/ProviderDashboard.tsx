@@ -652,9 +652,9 @@ export default function ProviderDashboard() {
       <div className="border-t border-gray-200 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-center sm:text-left">
-            <p className="font-semibold text-gray-900">Are you a marine surveyor?</p>
+            <p className="font-semibold text-gray-900">Are you a surveyor?</p>
             <p className="text-sm text-gray-500">
-              Yachtworx has a dedicated workspace for accredited survey professionals.
+              We have dedicated workflows available to you.
             </p>
           </div>
           <Link
