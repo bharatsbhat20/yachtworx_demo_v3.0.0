@@ -17,6 +17,7 @@ import { AuthPage } from './pages/AuthPage';
 import { WoodBoats } from './pages/WoodBoats';
 import { Haulouts } from './pages/Haulouts';
 import { HullCleaning } from './pages/HullCleaning';
+import { Liveaboard } from './pages/Liveaboard';
 import { Surveyors } from './pages/Surveyors';
 import { useAuthStore } from './store/authStore';
 
@@ -55,6 +56,7 @@ const AppContent: React.FC = () => {
           <Route path="/wood-boats" element={<WoodBoats />} />
           <Route path="/haulouts" element={<Haulouts />} />
           <Route path="/hull-cleaning" element={<HullCleaning />} />
+          <Route path="/liveaboard" element={<Liveaboard />} />
           <Route path="/surveyors" element={<Surveyors />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/register-provider" element={<ProviderRegistration />} />

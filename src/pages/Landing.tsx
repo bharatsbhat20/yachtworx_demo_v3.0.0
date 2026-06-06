@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import {
   Ship, FileText, BarChart2, Smartphone, Shield,
   ArrowRight, ChevronRight, CheckCircle, Zap,
-  MapPin, Anchor, Droplets,
+  MapPin, Anchor, Droplets, Home,
 } from 'lucide-react';
 import { Footer } from '../components/layout/Footer';
 import { Badge } from '../components/ui/Badge';
@@ -186,6 +186,14 @@ export const Landing: React.FC = () => {
               >
                 <Ship size={14} />
                 Wood Boats
+                <ArrowRight size={14} />
+              </Link>
+              <Link
+                to="/liveaboard"
+                className="inline-flex items-center gap-1.5 bg-purple-400/15 backdrop-blur-sm border border-purple-300/30 text-purple-100 text-sm px-4 py-2 rounded-full font-medium hover:bg-purple-400/25 transition-colors"
+              >
+                <Home size={14} />
+                Liveaboard
                 <ArrowRight size={14} />
               </Link>
             </div>
