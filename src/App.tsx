@@ -15,6 +15,7 @@ import ProviderDashboard from './pages/ProviderDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import { AuthPage } from './pages/AuthPage';
 import { WoodBoats } from './pages/WoodBoats';
+import { Haulouts } from './pages/Haulouts';
 import { Surveyors } from './pages/Surveyors';
 import { useAuthStore } from './store/authStore';
 
@@ -51,6 +52,7 @@ const AppContent: React.FC = () => {
           <Route path="/" element={<Landing />} />
           <Route path="/for-providers" element={<ProviderLanding />} />
           <Route path="/wood-boats" element={<WoodBoats />} />
+          <Route path="/haulouts" element={<Haulouts />} />
           <Route path="/surveyors" element={<Surveyors />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/register-provider" element={<ProviderRegistration />} />

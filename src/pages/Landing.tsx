@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import {
   Ship, FileText, BarChart2, Smartphone, Shield,
   ArrowRight, ChevronRight, CheckCircle, Zap,
-  MapPin
+  MapPin, Anchor,
 } from 'lucide-react';
 import { Footer } from '../components/layout/Footer';
 import { Badge } from '../components/ui/Badge';
@@ -165,11 +165,19 @@ export const Landing: React.FC = () => {
                 Now serving 12,400+ vessels in 48 states
               </div>
               <Link
+                to="/haulouts"
+                className="inline-flex items-center gap-1.5 bg-ocean-400/15 backdrop-blur-sm border border-ocean-300/30 text-ocean-100 text-sm px-4 py-2 rounded-full font-medium hover:bg-ocean-400/25 transition-colors"
+              >
+                <Anchor size={14} />
+                Haulouts
+                <ArrowRight size={14} />
+              </Link>
+              <Link
                 to="/wood-boats"
                 className="inline-flex items-center gap-1.5 bg-gold-400/15 backdrop-blur-sm border border-gold-400/30 text-gold-200 text-sm px-4 py-2 rounded-full font-medium hover:bg-gold-400/25 transition-colors"
               >
                 <Ship size={14} />
-                We support wood boats
+                Wood Boats
                 <ArrowRight size={14} />
               </Link>
             </div>
