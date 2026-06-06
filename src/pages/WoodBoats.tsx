@@ -2,113 +2,132 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  Ship, Anchor, Hammer, Droplets, Wind, Shield, FileText, Wrench,
-  CheckCircle, ArrowRight, ChevronRight, Layers, Waves, Sun, Snowflake,
-  Gauge, Search,
+  Ship, ArrowRight, ChevronRight, Droplets, Calendar, Hammer, Brush,
+  Users, Archive, Layers, Shield, Gauge, Anchor, Star, HelpCircle,
 } from 'lucide-react';
 import { Footer } from '../components/layout/Footer';
 
-// ─── Static content ───────────────────────────────────────────────────────────
+// ─── Static content (faithful replica of yachtworxv20.vercel.app/wood-boats) ──
 
-const constructionMethods = [
-  {
-    name: 'Carvel',
-    blurb: 'Smooth, edge-to-edge planking fastened over sawn or steam-bent frames, with seams payed and caulked. The classic workboat and cruising-yacht build.',
-  },
-  {
-    name: 'Clinker / Lapstrake',
-    blurb: 'Overlapping planks riveted along their lands. Light, strong, and traditional — common on tenders, daysailers, and Scandinavian craft.',
-  },
-  {
-    name: 'Strip-planked',
-    blurb: 'Narrow strips edge-glued and often nailed, frequently sheathed in epoxy and glass. A stable, low-maintenance hybrid of old and new.',
-  },
-  {
-    name: 'Cold-molded',
-    blurb: 'Multiple thin veneers laminated diagonally in epoxy into a monocoque hull. Stiff, light, and seam-free — favoured for performance classics.',
-  },
-  {
-    name: 'Plywood & sheet',
-    blurb: 'Marine plywood panels, often stitch-and-glue or hard-chine. Affordable, forgiving, and well suited to trailer-sailers and dinghies.',
-  },
-  {
-    name: 'Plank-on-frame',
-    blurb: 'Heavy traditional construction with grown frames, floors, and a substantial backbone. The genuine article — and the most rewarding to maintain.',
-  },
+const heroStats = [
+  { value: '3,200+', label: 'Wooden & Classic Vessels' },
+  { value: '480+',   label: 'Wooden-Boat Specialists' },
+  { value: '97%',    label: 'Owner Satisfaction Rate' },
+  { value: '48',     label: 'States Covered' },
 ];
 
-const componentAreas = [
-  {
-    icon: Layers,
-    title: 'Planking & garboards',
-    text: 'Per-strake condition notes, sprung-plank flags, and graving-piece repair history — including the hard-working garboard next to the keel.',
-  },
+const challenges = [
   {
     icon: Droplets,
-    title: 'Caulking & seams',
-    text: 'Track cotton, oakum, and seam-compound payments seam by seam, with reminders before the next haul-out so weeping seams never surprise you.',
+    title: 'Moisture & Rot Prevention',
+    text: "Wood boats demand vigilant moisture management. Yachtworx tracks hull moisture readings over time, alerts you when levels trend upward, and connects you with certified wooden-boat surveyors before a minor damp patch becomes structural rot.",
+  },
+  {
+    icon: Calendar,
+    title: 'Seasonal Haul-Out & Lay-Up',
+    text: "Proper winterisation and spring commissioning are non-negotiable for a wooden hull. Our maintenance scheduler builds a custom calendar around your vessel, climate, and storage situation — and notifies your go-to yard at the right time.",
   },
   {
     icon: Hammer,
-    title: 'Fastenings',
-    text: 'Log bronze, copper, silicon-bronze, or galvanised fastenings and schedule refastening cycles before "nail sickness" loosens a plank.',
+    title: 'Caulking, Fastening & Seam Work',
+    text: "Cotton caulk, paying compound, and bronze fastenings require specialists who still know traditional techniques. Yachtworx's marketplace surfaces only providers with verified wooden-boat experience, not just general fiberglass shops.",
   },
   {
-    icon: Wrench,
-    title: 'Frames, floors & backbone',
-    text: 'Monitor sawn and steam-bent frames, floor timbers, keel, deadwood, stem, and sternpost — the structural heart of any wooden hull.',
-  },
-  {
-    icon: Search,
-    title: 'Decay & rot watch',
-    text: 'Record sounding results and soft-spot locations over time so early fungal decay is caught while it is still a repair, not a rebuild.',
-  },
-  {
-    icon: Sun,
-    title: 'Brightwork & coatings',
-    text: 'Varnish and paint systems tracked coat by coat, with seasonal reminders so the toerail and transom never reach bare timber.',
+    icon: Brush,
+    title: 'Paint, Varnish & Brightwork',
+    text: "Oil finishes, spar varnish, and traditional bottom paint have very different maintenance rhythms from modern coatings. Our document vault stores your finish schedules and product history so every new applicator starts with full context.",
   },
 ];
 
-const seasonalCare = [
+const features = [
   {
-    icon: Waves,
-    season: 'Spring — taking up',
-    text: 'After a dry winter the planks have shrunk. Yachtworx schedules the relaunch, flags the expected "taking-up" leak period, and reminds you to keep the bilge watched until the seams swell tight.',
+    icon: Users,
+    title: 'Wood-Boat Specialist Network',
+    text: "We've curated a dedicated category of marine professionals — traditional boatbuilders, wooden-boat surveyors, riggers, and restoration yards — so you're never matched with a shop that's never touched carvel or lapstrake planking.",
   },
   {
-    icon: Sun,
-    season: 'Summer — keep her wet',
-    text: 'Topsides and decks above the waterline dry fastest. Maintenance alerts cover deck washing, brightwork touch-ups, and ventilation checks through the sailing season.',
+    icon: Archive,
+    title: 'Digital Build & Repair History',
+    text: "Store original lofting drawings, builder certificates, Lloyd's survey reports, and every repair invoice in a single encrypted vault. Prospective buyers and insurers can request a verified history package in one click.",
+  },
+  {
+    icon: Layers,
+    title: 'Component-Level Tracking',
+    text: "Log individual planks, frames, floors, and fastenings with condition ratings, photos, and service dates. Yachtworx surfaces which components are approaching their next service interval so nothing falls through the cracks.",
+  },
+  {
+    icon: Shield,
+    title: 'Insurance Built for Classic Vessels',
+    text: "Agreed-value policies, restoration-in-progress coverage, and Lloyd's-approved surveyors are available through our insurance marketplace. We work with insurers who understand that an old-growth teak deck cannot be replaced with fiberglass.",
+  },
+  {
+    icon: Gauge,
+    title: 'Moisture & Condition Alerts',
+    text: "Connect compatible boat sensors or log manual moisture-meter readings. Yachtworx plots trends over time and flags anomalies — giving you early warning before minor seepage becomes a major repair.",
   },
   {
     icon: Anchor,
-    season: 'Autumn — haul & survey',
-    text: 'Time the annual haul-out, pressure wash, fastening checks, and surveyor visit. Findings drop straight into the vessel record with photos and provider notes.',
+    title: 'Marina Berths for Liveaboards & Long-Term Storage',
+    text: "Our marina discovery tool filters for yards with covered dry storage, travel-lift capacity appropriate for heavier wooden hulls, and on-site wooden-boat expertise — not just the nearest vacant slip.",
+  },
+];
+
+const steps = [
+  {
+    step: '01',
+    title: 'Create your vessel profile',
+    text: "Enter your boat's builder, construction year, construction method (carvel, lapstrake, cold-moulded, etc.), and rig type. Attach builder certificates or survey reports. Takes ten minutes.",
   },
   {
-    icon: Snowflake,
-    season: 'Winter — store with care',
-    text: 'A covered, ventilated layup that holds moisture without trapping it. Yachtworx tracks cover condition, humidity, and the jobs queued for the off-season.',
+    step: '02',
+    title: 'Find your specialists',
+    text: 'Browse the wooden-boat specialist directory. Filter by trade — surveyors, boatbuilders, riggers, varnishers, caulkers. Read verified reviews from other wooden-boat owners.',
+  },
+  {
+    step: '03',
+    title: 'Manage everything in one place',
+    text: "Log service records, track component condition, schedule haul-outs, and store documents. Your vessel's complete history, always at your fingertips.",
+  },
+];
+
+const testimonials = [
+  {
+    quote: "I've owned Lulubelle for eleven years. Yachtworx is the first platform that didn't treat her like a problem to be solved. The specialist network found me a caulker who still uses cotton — I thought those guys were extinct.",
+    name: 'David Harrington',
+    vessel: '1962 Hinckley Bermuda 40',
+  },
+  {
+    quote: "The document vault alone is worth it. I uploaded every survey and repair receipt going back to 1978. When I refinanced the boat, the bank had a complete history in twenty minutes.",
+    name: 'Margaret Osei',
+    vessel: '1938 Herreshoff S-Boat',
+  },
+  {
+    quote: "My surveyor uploads condition notes directly into the platform after each annual haul-out. I can see exactly which frames she flagged and track whether they've improved or worsened over three seasons.",
+    name: 'Tom Ellroy',
+    vessel: '1955 Chris-Craft Riviera',
   },
 ];
 
 const faqs = [
   {
-    q: 'My wooden boat has no HIN — can I still create a profile?',
-    a: 'Yes. HIN-based autofill is optional. For classic and traditionally built vessels you enter make, model, year, and dimensions manually, and the digital twin works exactly the same.',
+    q: 'Does Yachtworx support antique and pre-WWII vessels?',
+    a: "Yes. Our platform places no age floor on vessels. We've helped owners manage everything from 1920s New England lobster smacks to 1970s wooden production sloops. Older vessels simply get more fields: builder, original registry number, construction method, and Lloyd's class history.",
   },
   {
-    q: 'Can the component tracker handle a refastening?',
-    a: 'It is built for it. Fastenings are first-class components with their own service intervals, so you can log a partial or full refastening and have the next cycle scheduled automatically.',
+    q: 'How do I find a surveyor who specialises in wooden boats?',
+    a: 'Use the Marketplace filter "Vessel Type: Wood / Classic." Surveyors in this category have self-certified and been reviewed by other wooden-boat owners. We recommend requesting at least three owner reviews before booking, which our profile pages make easy.',
   },
   {
-    q: 'Does the health score understand timber?',
-    a: 'The health score weights wood-specific components — planking, seams, fastenings, and structural members — and treats seasonal moisture movement as normal rather than as a fault.',
+    q: 'Can I store sensitive documents like title and insurance certificates?',
+    a: 'All documents in the vault are encrypted at rest and in transit. You control access — you can share a read-only link with a broker, surveyor, or insurer with an expiry date, and revoke access at any time.',
   },
   {
-    q: 'Are there providers who actually know wooden boats?',
-    a: 'The marketplace lets you filter for shipwrights, traditional caulkers, spar makers, and yards with proven wooden-hull experience, so your boat is matched with the right hands.',
+    q: "I'm mid-restoration. Can Yachtworx help during the build phase?",
+    a: 'Absolutely. Many of our members open an account during restoration, logging parts sourced, contractors hired, and milestone photos as the project progresses. When the boat launches, the complete provenance record is already built.',
+  },
+  {
+    q: 'Are wooden sailboats and wooden powerboats both supported?',
+    a: 'Fully. Yachtworx handles sail, power, and traditional working vessels regardless of propulsion. Component templates differ by type — a gaff-rigged ketch has different maintenance items than a triple-screw commuter — but both are covered.',
   },
 ];
 
@@ -117,7 +136,7 @@ const faqs = [
 export const WoodBoats: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero */}
+      {/* ── HERO ── */}
       <section className="relative bg-hero-gradient overflow-hidden">
         <div
           className="absolute inset-0 opacity-20"
@@ -126,82 +145,101 @@ export const WoodBoats: React.FC = () => {
                              radial-gradient(circle at 85% 15%, #C9943A 0%, transparent 55%)`,
           }}
         />
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 text-center">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <div className="inline-flex items-center gap-2 bg-gold-400/15 border border-gold-400/30 text-gold-200 text-sm px-4 py-2 rounded-full mb-6 font-medium">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-sm px-4 py-2 rounded-full mb-6 font-medium">
               <Ship size={14} />
-              Built for timber, not just fibreglass
+              Purpose-built for traditional vessels
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight mb-6">
-              Yachtworx supports{' '}
+              Yachtworx for{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-teal-300">
-                wood boats
+                Wood Boats
               </span>
             </h1>
             <p className="text-lg sm:text-xl text-white/75 max-w-2xl mx-auto leading-relaxed">
-              A wooden hull is a living structure — it breathes, swells, and asks
-              for craftsmanship that fibreglass never will. Yachtworx is built to
-              keep classic and traditionally constructed vessels on the water,
-              looked after, and fully documented.
+              Wooden vessels are living things. They require specialists who
+              understand their rhythms — and a platform built around their
+              unique needs, not retrofitted from a fiberglass checklist.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
               <Link to="/dashboard" className="btn-hero text-base px-8 py-4">
-                Add your wooden boat
+                Get Started Free
                 <ArrowRight size={18} />
               </Link>
-              <Link to="/" className="btn-ghost text-base px-8 py-4">
-                Back to home
+              <Link to="/marketplace" className="btn-ghost text-base px-8 py-4">
+                Browse Specialists
                 <ChevronRight size={18} />
               </Link>
             </div>
           </motion.div>
         </div>
+
+        {/* Stats band */}
+        <div className="relative z-10 bg-navy-700/40 border-t border-b border-white/10 backdrop-blur-sm">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {heroStats.map((s) => (
+              <div key={s.label} className="text-center">
+                <div className="text-3xl sm:text-4xl font-heading font-bold text-teal-300">
+                  {s.value}
+                </div>
+                <div className="text-white/60 text-sm font-medium mt-1">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
-      {/* Why wood is different */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      {/* ── WHY WOOD BOATS NEED THEIR OWN PLATFORM ── */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
+          className="text-center mb-10"
         >
           <span className="text-sm font-semibold text-ocean-600 uppercase tracking-wide">
-            A different kind of boat
+            Why wood boats need their own platform
           </span>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-navy-600 mt-2 mb-6">
-            Why wooden hulls need their own approach
+          <h2 className="text-4xl font-heading font-bold text-navy-500 mb-6 leading-tight mt-3">
+            Generic marine apps weren't built for your boat
           </h2>
-          <div className="space-y-4 text-gray-600 text-lg leading-relaxed">
-            <p>
-              Most boat-management tools assume a hull that never moves. A
-              wooden boat is the opposite. Planks take up moisture and swell in
-              the water, shrink again when she is hauled, and the whole
-              structure works gently with every sea. That movement is not a
-              defect — it is how the boat was designed to behave.
-            </p>
-            <p>
-              The work that keeps her sound is just as distinctive: caulking
-              seams, watching fastenings for age, sounding the planking for
-              early decay, and keeping a paint or varnish system unbroken so
-              water never reaches bare timber. Miss the rhythm of that care and
-              small jobs quietly become major restorations.
-            </p>
-            <p>
-              Yachtworx treats your wooden boat as the craft she is. The same
-              digital twin, marketplace, and document vault that serve modern
-              yachts are tuned here for planking, seams, fastenings, and the
-              seasonal cycle a timber hull lives by.
-            </p>
-          </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="space-y-5 text-gray-600 text-lg leading-relaxed"
+        >
+          <p>
+            Most boat management software was designed around modern production
+            fiberglass — standard hull forms, commodity parts, and a
+            maintenance calendar that could apply to any vessel off a Sarasota
+            assembly line. Wooden boats are different in almost every dimension.
+            A 1948 Alden schooner needs cotton caulk and linseed oil, not
+            gelcoat repair kits. Its insurance valuation is agreed, not actual
+            cash value. Its surveyor should know what a butt block looks like.
+            Its marina berth should have blocking appropriate for a heavier,
+            deeper-draft hull.
+          </p>
+          <p>
+            Yachtworx was built to serve every type of vessel — including the
+            ones that deserve the most care. For wooden-boat owners, that means
+            specialist directories, condition-aware maintenance tracking, and a
+            document vault that preserves provenance for generations.
+          </p>
         </motion.div>
       </section>
 
-      {/* Construction methods */}
+      {/* ── UNIQUE CHALLENGES ── */}
       <section className="bg-white border-y border-gray-200 py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -212,41 +250,38 @@ export const WoodBoats: React.FC = () => {
             className="text-center mb-12"
           >
             <span className="text-sm font-semibold text-ocean-600 uppercase tracking-wide">
-              Every build, covered
+              What we solve
             </span>
-            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-navy-600 mt-2">
-              Construction methods we support
+            <h2 className="text-4xl font-heading font-bold text-navy-500 mt-3">
+              The unique challenges of wooden-boat ownership
             </h2>
-            <p className="text-gray-500 mt-3 max-w-2xl mx-auto">
-              From a clinker tender to a plank-on-frame schooner, Yachtworx
-              adapts component tracking to how your boat was actually built.
-            </p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {constructionMethods.map((m, i) => (
-              <motion.div
-                key={m.name}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-ocean-100 text-ocean-600 flex items-center justify-center">
-                    <Ship size={16} />
+          <div className="grid sm:grid-cols-2 gap-5">
+            {challenges.map((c, i) => {
+              const Icon = c.icon;
+              return (
+                <motion.div
+                  key={c.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.05 }}
+                  className="rounded-xl border border-gray-200 p-6 hover:shadow-md transition-shadow"
+                >
+                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-ocean-500 to-teal-500 text-white flex items-center justify-center mb-4">
+                    <Icon size={20} />
                   </div>
-                  <h3 className="font-heading font-bold text-navy-600">{m.name}</h3>
-                </div>
-                <p className="text-sm text-gray-600 leading-relaxed">{m.blurb}</p>
-              </motion.div>
-            ))}
+                  <h3 className="font-heading font-bold text-navy-500 mb-2">{c.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{c.text}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Component areas */}
+      {/* ── FEATURES ── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -256,92 +291,76 @@ export const WoodBoats: React.FC = () => {
           className="text-center mb-12"
         >
           <span className="text-sm font-semibold text-ocean-600 uppercase tracking-wide">
-            The digital twin, in timber
+            Platform features
           </span>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-navy-600 mt-2">
-            Wood-specific component tracking
+          <h2 className="text-4xl font-heading font-bold text-navy-500 mt-3">
+            Everything a wooden-boat owner needs
           </h2>
-          <p className="text-gray-500 mt-3 max-w-2xl mx-auto">
-            Yachtworx ships a component set built for wooden hulls — so the
-            things that actually keep her sound are tracked, scheduled, and
-            never forgotten.
-          </p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {componentAreas.map((c, i) => {
-            const Icon = c.icon;
+          {features.map((f, i) => {
+            const Icon = f.icon;
             return (
               <motion.div
-                key={c.title}
+                key={f.title}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
                 className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-shadow"
               >
-                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-ocean-500 to-teal-500 text-white flex items-center justify-center mb-4">
+                <div className="w-11 h-11 rounded-xl bg-ocean-100 text-ocean-600 flex items-center justify-center mb-4">
                   <Icon size={20} />
                 </div>
-                <h3 className="font-heading font-bold text-navy-600 mb-1.5">{c.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{c.text}</p>
+                <h3 className="font-heading font-bold text-navy-500 mb-1">{f.title}</h3>
+                <p className="text-sm text-gray-600 leading-relaxed">{f.text}</p>
               </motion.div>
             );
           })}
         </div>
       </section>
 
-      {/* Health score band */}
-      <section className="bg-navy-600 py-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white/80 text-sm px-3 py-1.5 rounded-full mb-4">
-                <Gauge size={14} />
-                Health score, tuned for timber
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-4">
-                Seasonal movement is normal — and the score knows it
-              </h2>
-              <p className="text-white/70 leading-relaxed">
-                A timber hull that swells in spring and dries in winter is a
-                healthy one. Yachtworx weights wood-specific components and
-                reads seasonal moisture movement as expected behaviour, so your
-                vessel health score reflects genuine condition — fastening age,
-                seam integrity, decay findings — not the boat simply doing what
-                wooden boats do.
-              </p>
-            </motion.div>
+      {/* ── STEPS ── */}
+      <section className="bg-navy-500 py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-14"
+          >
+            <span className="text-sm font-semibold text-teal-300 uppercase tracking-wide">
+              Getting started
+            </span>
+            <h2 className="text-4xl font-heading font-bold text-white mt-3">
+              Up and running in three steps
+            </h2>
+          </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="space-y-3"
-            >
-              {[
-                'Planking, seams & fastenings weighted as structural',
-                'Caulking history scheduled against haul-out cycles',
-                'Decay soundings logged and trended over the years',
-                'Brightwork and paint systems tracked coat by coat',
-              ].map((line) => (
-                <div key={line} className="flex items-start gap-3 bg-white/5 border border-white/10 rounded-xl p-4">
-                  <CheckCircle size={18} className="text-teal-300 flex-shrink-0 mt-0.5" />
-                  <span className="text-white/85 text-sm">{line}</span>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {steps.map((s, i) => (
+              <motion.div
+                key={s.step}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="text-center"
+              >
+                <div className="text-5xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-300 to-ocean-300 mb-3">
+                  {s.step}
                 </div>
-              ))}
-            </motion.div>
+                <h3 className="font-heading font-bold text-white text-xl mb-3">{s.title}</h3>
+                <p className="text-white/65 leading-relaxed">{s.text}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Seasonal care */}
+      {/* ── TESTIMONIALS ── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -351,126 +370,81 @@ export const WoodBoats: React.FC = () => {
           className="text-center mb-12"
         >
           <span className="text-sm font-semibold text-ocean-600 uppercase tracking-wide">
-            The wooden-boat year
+            Owner stories
           </span>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-navy-600 mt-2">
-            Seasonal care, scheduled for you
+          <h2 className="text-4xl font-heading font-bold text-navy-500 mt-3">
+            Trusted by classic vessel owners
           </h2>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {seasonalCare.map((s, i) => {
-            const Icon = s.icon;
-            return (
-              <motion.div
-                key={s.season}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="bg-white rounded-xl border border-gray-200 p-6"
-              >
-                <div className="w-10 h-10 rounded-xl bg-ocean-100 text-ocean-600 flex items-center justify-center mb-4">
-                  <Icon size={18} />
-                </div>
-                <h3 className="font-heading font-bold text-navy-600 text-sm mb-2">{s.season}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{s.text}</p>
-              </motion.div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Specialists + documentation */}
-      <section className="bg-white border-y border-gray-200 py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="rounded-2xl border border-gray-200 p-8"
-          >
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-navy-400 to-navy-600 text-white flex items-center justify-center mb-5">
-              <Wind size={22} />
-            </div>
-            <h3 className="text-xl font-heading font-bold text-navy-600 mb-3">
-              Matched with real shipwrights
-            </h3>
-            <p className="text-gray-600 leading-relaxed">
-              Wooden boats need hands that know them. The Yachtworx marketplace
-              lets you filter for traditional shipwrights, caulkers, spar and
-              mast makers, and yards with proven timber-hull experience —
-              complete with reviews from other wooden-boat owners. The right
-              specialist, matched to the job your boat actually needs.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.08 }}
-            className="rounded-2xl border border-gray-200 p-8"
-          >
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gold-400 to-gold-500 text-white flex items-center justify-center mb-5">
-              <FileText size={22} />
-            </div>
-            <h3 className="text-xl font-heading font-bold text-navy-600 mb-3">
-              A provenance worth keeping
-            </h3>
-            <p className="text-gray-600 leading-relaxed">
-              A classic boat is only as valuable as her record. The document
-              vault keeps surveys, restoration photographs, receipts, original
-              drawings, and rig specifications in one place — a continuous
-              history that protects the vessel and travels with her to the next
-              custodian.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-10"
-        >
-          <span className="text-sm font-semibold text-ocean-600 uppercase tracking-wide">
-            Common questions
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-navy-600 mt-2">
-            Wooden boats, answered
-          </h2>
-        </motion.div>
-
-        <div className="space-y-4">
-          {faqs.map((f, i) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {testimonials.map((t, i) => (
             <motion.div
-              key={f.q}
-              initial={{ opacity: 0, y: 12 }}
+              key={t.name}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="bg-white rounded-xl border border-gray-200 p-5"
+              transition={{ duration: 0.4, delay: i * 0.06 }}
+              className="bg-white rounded-xl border border-gray-200 p-6 flex flex-col"
             >
-              <div className="flex items-start gap-3">
-                <Shield size={18} className="text-ocean-500 flex-shrink-0 mt-0.5" />
-                <div>
-                  <h3 className="font-semibold text-navy-600 mb-1">{f.q}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">{f.a}</p>
-                </div>
+              <div className="flex gap-0.5 mb-3 text-gold-400">
+                {[1,2,3,4,5].map((n) => (
+                  <Star key={n} size={16} className="fill-current" />
+                ))}
+              </div>
+              <p className="text-gray-700 leading-relaxed flex-1 mb-5">"{t.quote}"</p>
+              <div className="border-t border-gray-100 pt-4">
+                <p className="font-semibold text-navy-500">{t.name}</p>
+                <p className="text-sm text-gray-500">{t.vessel}</p>
               </div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-hero-gradient">
+      {/* ── FAQ ── */}
+      <section className="bg-white border-t border-gray-200 py-20">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <span className="text-sm font-semibold text-ocean-600 uppercase tracking-wide">
+              FAQ
+            </span>
+            <h2 className="text-4xl font-heading font-bold text-navy-500 mt-3">
+              Common questions
+            </h2>
+          </motion.div>
+
+          <div className="space-y-4">
+            {faqs.map((f, i) => (
+              <motion.div
+                key={f.q}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                className="rounded-xl border border-gray-200 p-5"
+              >
+                <div className="flex items-start gap-3">
+                  <HelpCircle size={18} className="text-ocean-500 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-navy-500 mb-1.5">{f.q}</h3>
+                    <p className="text-gray-600 leading-relaxed">{f.a}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FINAL CTA ── */}
+      <section className="bg-gradient-to-br from-ocean-600 via-teal-600 to-ocean-700">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -478,18 +452,24 @@ export const WoodBoats: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Anchor size={32} className="text-teal-300 mx-auto mb-5" />
-            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-4">
-              Bring your wooden boat aboard
+            <h2 className="text-4xl font-heading font-bold text-white mb-4">
+              Your wooden boat deserves better
             </h2>
-            <p className="text-white/70 text-lg max-w-xl mx-auto mb-8">
-              Create her digital twin, schedule the care she needs, and keep
-              every plank, seam, and fastening on the record.
+            <p className="text-white/85 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+              Join 3,200+ wooden and classic vessel owners who manage their
+              boats on Yachtworx — the only platform that takes traditional
+              craftsmanship as seriously as you do.
             </p>
-            <Link to="/dashboard" className="btn-hero text-base px-8 py-4 inline-flex">
-              Get started
-              <ArrowRight size={18} />
-            </Link>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link to="/dashboard" className="bg-white text-ocean-700 font-semibold text-base px-8 py-4 rounded-xl hover:bg-gray-50 transition-colors inline-flex items-center gap-2">
+                Start Free — No Credit Card
+                <ArrowRight size={18} />
+              </Link>
+              <Link to="/marketplace" className="border border-white/40 text-white font-semibold text-base px-8 py-4 rounded-xl hover:bg-white/10 transition-colors inline-flex items-center gap-2">
+                Browse Specialists
+                <ChevronRight size={18} />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
